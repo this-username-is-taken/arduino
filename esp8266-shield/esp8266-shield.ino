@@ -12,6 +12,7 @@ void setup()
 {
   // set build in led as output
   pinMode(13, OUTPUT);
+
   Serial.begin(9600);
   esp8266.begin(9600); // Default baudrate (115200) causes issues
   
@@ -38,7 +39,7 @@ void loop()
         sendData("\nEr");
     }
   }
-  
+
   if (esp8266.available() > 0) {
     String message = readEsp8266Message();
     Serial.println("RECEIVED: " + message);
@@ -127,8 +128,8 @@ String readEsp8266Message() {
 * Returns: The response from the esp8266 (if there is a reponse)
 */
 String sendToEsp8266(String command, const int timeout, boolean debug) {
-  esp8266.println(command); // send the read character to the esp8266
-  
+  esp8266.println(command);
+
   String response = "";
   long int time = millis();
   while (time + TIMEOUT > millis()) {
